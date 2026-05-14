@@ -4,38 +4,34 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Appointment extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'patient_id',
-        'doctor_id',
+        'client_id',
+        'specialist_id',
+        'service_id',
         'date',
-        'start_time',
-        'end_time',
-        'duration',
-        'reason',
+        'time',
         'status',
-        'diagnosis',
-        'treatment',
         'notes',
-        'prescription',
     ];
 
-    protected $casts = [
-        'date' => 'date',
-        'prescription' => 'array', // Assuming we store dynamic medications as JSON array
-    ];
-
-    public function patient()
+    public function client()
     {
-        return $this->belongsTo(Patient::class);
+        return $this->belongsTo(User::class, 'client_id');
     }
 
-    public function doctor()
+    public function specialist()
     {
-        return $this->belongsTo(Doctor::class);
+        return $this->belongsTo(Specialist::class);
+    }
+
+    public function service()
+    {
+        return $this->belongsTo(Service::class);
     }
 }

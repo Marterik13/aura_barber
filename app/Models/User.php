@@ -48,8 +48,20 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    //Relacion uno a uno
+    // Relación para cuando el usuario es un paciente/cliente
     public function patient(){
         return $this->hasOne(Patient::class);
+    }
+
+    // Nueva relación para el sistema de estética: Cliente tiene muchas citas
+    public function clientAppointments()
+    {
+        return $this->hasMany(Appointment::class, 'client_id');
+    }
+
+    // Si el usuario es un especialista (Staff)
+    public function specialist()
+    {
+        return $this->hasOne(Specialist::class);
     }
 }
