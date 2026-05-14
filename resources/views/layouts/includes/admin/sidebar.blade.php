@@ -3,86 +3,64 @@
       [
          'name' => 'Dashboard',
          'icon' => 'fa-solid fa-gauge',
-         'href' => route('admin.dashboard'),
-         'active' => request()->routeIs('admin.dashboard')
+         'href' => route('dashboard'),
+         'active' => request()->routeIs('dashboard')
       ],
       [
-         'header' => 'Gestión',
+         'header' => 'Gestión de Estética',
       ],
       [
-         'name' => 'Roles y Permisos',
-         'icon' => 'fa-solid fa-shield-halved',
-         'href' => route('admin.roles.index'),
-         'active' => request()->routeIs('admin.roles.*'),
+         'name' => 'Servicios',
+         'icon' => 'fa-solid fa-scissors',
+         'href' => '#',
+         'active' => false,
+      ],
+      [
+         'name' => 'Especialistas',
+         'icon' => 'fa-solid fa-user-tie',
+         'href' => '#',
+         'active' => false,
+      ],
+      [
+         'name' => 'Citas',
+         'icon' => 'fa-solid fa-calendar-check',
+         'href' => '#',
+         'active' => false,
+      ],
+      [
+         'header' => 'Administración',
       ],
       [
          'name' => 'Usuarios',
          'icon' => 'fa-solid fa-users',
-         'href' => route('admin.users.index'),
-         'active' => request()->routeIs('admin.users.*'),
+         'href' => '#',
+         'active' => false,
       ],
-           [
-      'name' => 'Pacientes',
-      'icon' => 'fa-solid  fa-user-injured',
-      'href' => route('admin.patients.index'),
-      'active' => request()->routeIs('admin.patients.*'),
-   ],
-   [
-      'name' => 'Doctores',
-      'icon' => 'fa-solid fa-user-doctor',
-      'href' => route('admin.doctors.index'),
-      'active' => request()->routeIs('admin.doctors.*'),
-   ],
-   [
-      'name' => 'Citas médicas',
-      'icon' => 'fa-solid fa-calendar-check',
-      'href' => route('admin.appointments.index'),
-      'active' => request()->routeIs('admin.appointments.*'),
-   ],
-   
    ];
 @endphp
 
 <aside id="top-bar-sidebar" class="fixed top-0 left-0 z-40 w-64 h-full transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
-   <div class="h-full px-3 py-4 overflow-y-auto bg-white border-e border-gray-200">
-      <a href="/" class="flex items-center ps-2.5 mb-5">
-         <img src="{{ asset('imagenes/ejemplo.jpg') }}" class="h-6 me-3" alt="Logo" />
-         <span class="self-center text-lg font-semibold whitespace-nowrap text-gray-800">Healtify</span>
+   <div class="h-full px-3 py-4 overflow-y-auto bg-[#111] border-e border-gray-800">
+      <a href="/" class="flex flex-col items-center mb-10 mt-4">
+         <div class="text-2xl font-bold tracking-tighter">
+             <span class="text-white">AURA</span>
+             <span class="gold-text">AESTHETICS</span>
+         </div>
       </a>
       <ul class="space-y-2 font-medium">
          @foreach ($links as $link)
          <li>
             @isset($link['header'])
-               <div class="px-2 py-2 text-xs font-semibold text-gray-400 uppercase">
+               <div class="px-2 py-4 text-xs font-semibold text-gray-500 uppercase tracking-widest">
                   {{ $link['header'] }}
                </div>
             @else
-               @isset($link['submenu'])
-                  @php $id = Str::slug($link['name']); @endphp
-                  <button type="button" class="flex items-center w-full justify-between px-2 py-1.5 text-gray-700 rounded-lg hover:bg-gray-100 group" data-collapse-toggle="dropdown-{{ $id }}">
-                     <span class="w-6 h-6 inline-flex items-center justify-center text-gray-500">
-                        <i class="{{ $link['icon'] }}"></i>
-                     </span>
-                     <span class="flex-1 ms-3 text-left whitespace-nowrap">{{ $link['name'] }}</span>
-                     <i class="fa-solid fa-chevron-down text-xs"></i>
-                  </button>
-                  <ul id="dropdown-{{ $id }}" class="hidden py-2 space-y-2">
-                     @foreach ($link['submenu'] as $item)
-                        <li>
-                           <a href="{{ $item['href'] }}" class="pl-11 flex items-center p-2 text-gray-600 rounded-lg hover:bg-gray-100">
-                              {{ $item['name'] }}
-                           </a>
-                        </li>
-                     @endforeach
-                  </ul>
-               @else
-                  <a href="{{ $link['href'] }}" class="flex items-center px-2 py-1.5 text-gray-700 rounded-lg hover:bg-gray-100 {{ $link['active'] ? 'bg-gray-100 font-bold' : '' }}">
-                     <span class="w-6 h-6 inline-flex items-center justify-center text-gray-500">
-                        <i class="{{ $link['icon'] }}"></i>
-                     </span>
-                     <span class="flex-1 ms-3 whitespace-nowrap">{{ $link['name'] }}</span>
-                  </a>
-               @endisset
+               <a href="{{ $link['href'] }}" class="flex items-center px-4 py-3 text-gray-400 rounded-xl hover:bg-gray-900 hover:text-[#D4AF37] transition-all group {{ $link['active'] ? 'bg-gray-900 text-[#D4AF37] font-bold border-l-4 border-[#D4AF37]' : '' }}">
+                  <span class="w-6 h-6 inline-flex items-center justify-center">
+                     <i class="{{ $link['icon'] }}"></i>
+                  </span>
+                  <span class="flex-1 ms-3 whitespace-nowrap">{{ $link['name'] }}</span>
+               </a>
             @endisset
          </li>
          @endforeach

@@ -11,8 +11,9 @@
 
         <title>{{ $title }}</title>
 
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireStyles
@@ -21,8 +22,16 @@
 
         <wireui:scripts />
         @wireUiScripts
+        <style>
+            body { font-family: 'Inter', sans-serif; background-color: #0D0D0D; color: #F5F5F5; }
+            .gold-text {
+                background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+        </style>
     </head>
-    <body class="font-sans antialiased bg-gray-100">
+    <body class="bg-[#0D0D0D] text-[#F5F5F5]">
 
     @include('layouts.includes.admin.navigation')
     @include('layouts.includes.admin.sidebar')
@@ -39,7 +48,9 @@
        </div>
        
        <main class="mt-4">
-           {{ $slot }}
+            <div class="bg-[#1A1A1A] border border-gray-800 rounded-2xl p-6 shadow-2xl">
+                {{ $slot }}
+            </div>
        </main>
     </div>
 

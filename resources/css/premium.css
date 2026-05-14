@@ -1,0 +1,46 @@
+:root {
+    --primary-gold: #D4AF37;
+    --primary-dark: #0D0D0D;
+    --secondary-dark: #1A1A1A;
+    --accent-gold: #FFD700;
+    --text-light: #F5F5F5;
+    --text-muted: #A0A0A0;
+}
+
+body {
+    background-color: var(--primary-dark);
+    color: var(--text-light);
+    font-family: 'Inter', sans-serif;
+}
+
+.premium-gradient {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 100%);
+}
+
+.gold-text {
+    color: var(--primary-gold);
+    background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.gold-border {
+    border: 1px solid var(--primary-gold);
+}
+
+.gold-button {
+    background-color: var(--primary-gold);
+    color: var(--primary-dark);
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.gold-button:hover {
+    background-color: var(--accent-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+}
+
+.hero-overlay {
+    background: rgba(0, 0, 0, 0.7);
+}
