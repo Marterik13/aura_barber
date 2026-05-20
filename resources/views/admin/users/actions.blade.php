@@ -10,4 +10,3 @@
         <x-wire-button type="submit" icon="trash" red xs />
     </form>
 </div>
-</div>

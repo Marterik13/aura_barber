@@ -1,5 +1,5 @@
 <x-admin-layout title="Usuarios" :breadcrumbs="[
-    ['name' => 'Dashboard', 'href' => route('admin.dashboard')],
+    ['name' => 'Dashboard', 'href' => route('dashboard')],
     ['name' => 'Usuarios']
 ]">
 

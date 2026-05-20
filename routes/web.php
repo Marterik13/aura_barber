@@ -19,6 +19,6 @@ Route::middleware([
     })->name('dashboard');
 
     // --- AURA AESTHETICS ROUTES ---
-    Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users.index');
+    Route::resource('/admin/users', UserController::class)->names('admin.users');
     Route::get('/admin/roles', [RoleController::class, 'index'])->name('admin.roles.index');
 });

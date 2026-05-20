@@ -34,11 +34,10 @@
     <body class="bg-[#0D0D0D] text-[#F5F5F5]">
 
     @include('layouts.includes.admin.navigation')
-    @include('layouts.includes.admin.sidebar')
 
-    <div class="p-4 sm:ml-64 mt-14">
+    <div class="p-4 sm:px-6 lg:px-8 mt-14 max-w-screen-2xl mx-auto w-full">
        <div class="mt-14 flex justify-between items-center w-full">
-            @include('components.breadcrumb', ['breadcrumbs' => $breadcrumbs])
+            @include('includes.admin.breadcrumbs', ['breadcrumbs' => $breadcrumbs])
             
             @isset($action)
                 <div>
