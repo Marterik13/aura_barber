@@ -29,6 +29,26 @@
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
             }
+            
+            /* Custom Dark Theme Overrides for Datatables */
+            .dark-table-container table { color: #F5F5F5 !important; }
+            .dark-table-container thead th { background-color: #111 !important; color: #D4AF37 !important; border-bottom: 1px solid #333 !important; }
+            .dark-table-container tbody td { background-color: #1A1A1A !important; color: #F5F5F5 !important; border-bottom: 1px solid #333 !important; }
+            .dark-table-container tbody tr:hover td { background-color: #222 !important; }
+            .dark-table-container .bg-white { background-color: transparent !important; }
+            .dark-table-container select, .dark-table-container input { background-color: #111 !important; color: #FFF !important; border: 1px solid #333 !important; }
+            .dark-table-container .text-gray-500, .dark-table-container .text-gray-700, .dark-table-container .text-gray-900 { color: #CCC !important; }
+            .dark-table-container .border-gray-200 { border-color: #333 !important; }
+            .dark-table-container .bg-gray-50 { background-color: #111 !important; }
+            /* Paginator Fixes */
+            .dark-table-container nav[role="navigation"] button, .dark-table-container nav[role="navigation"] a {
+                background-color: #111 !important;
+                color: #D4AF37 !important;
+                border-color: #333 !important;
+            }
+            .dark-table-container nav[role="navigation"] span {
+                color: #F5F5F5 !important;
+            }
         </style>
     </head>
     <body class="bg-[#0D0D0D] text-[#F5F5F5]">

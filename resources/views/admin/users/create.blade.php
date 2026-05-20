@@ -35,11 +35,11 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         
                         <div>
-                            <x-wire-input label="Nombre" name="name" :value="old('name')" placeholder="Nombre completo" />
+                            <x-wire-input label="Nombre" name="name" :value="old('name')" placeholder="Nombre completo" required />
                         </div>
 
                         <div>
-                            <x-wire-input label="Correo electrónico" name="email" :value="old('email')" type="email" placeholder="ejemplo@dominio.com" />
+                            <x-wire-input label="Correo electrónico" name="email" :value="old('email')" type="email" placeholder="ejemplo@dominio.com" required />
                         </div>
 
                         <div>
@@ -51,16 +51,16 @@
                         </div>
 
                         <div>
-                            <x-wire-input label="Número de ID" name="id_number" :value="old('id_number')" placeholder="Ej. 123456789" />
+                            <x-wire-input label="Número de ID" name="id_number" :value="old('id_number')" placeholder="Ej. 123456789" required />
                         </div>
 
                         <div>
-                            <x-wire-input label="Teléfono" name="phone" :value="old('phone')" placeholder="Ej. 999999999" />
+                            <x-wire-input label="Teléfono" name="phone" :value="old('phone')" placeholder="Ej. 999999999" required />
                         </div>
 
                         {{-- Dirección y Rol ocupan todo el ancho (col-span-2) --}}
                         <div class="md:col-span-2">
-                            <x-wire-input label="Dirección" name="address" :value="old('address')" placeholder="Ej. Calle 90 293" />
+                            <x-wire-input label="Dirección" name="address" :value="old('address')" placeholder="Ej. Calle 90 293" required />
                         </div>
 
                         <div class="md:col-span-2">

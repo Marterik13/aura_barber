@@ -25,6 +25,7 @@
             </a>
 
             <!-- Gestión de Estética Dropdown -->
+            @hasanyrole('Admin|Staff')
             <div class="relative">
                 <x-dropdown align="left" width="48">
                     <x-slot name="trigger">
@@ -49,8 +50,10 @@
                     </x-slot>
                 </x-dropdown>
             </div>
+            @endhasanyrole
 
             <!-- Administración Dropdown -->
+            @role('Admin')
             <div class="relative">
                 <x-dropdown align="left" width="48">
                     <x-slot name="trigger">
@@ -69,6 +72,7 @@
                     </x-slot>
                 </x-dropdown>
             </div>
+            @endrole
         </div>
       </div>
 
@@ -127,6 +131,7 @@
             Dashboard
         </x-responsive-nav-link>
 
+        @hasanyrole('Admin|Staff')
         <div class="block px-4 py-2 text-xs text-gray-500 font-semibold uppercase mt-4">
             Gestión de Estética
         </div>
@@ -139,13 +144,16 @@
         <x-responsive-nav-link href="#">
             <i class="fa-solid fa-calendar-check w-5 text-center mr-2"></i> Citas
         </x-responsive-nav-link>
+        @endhasanyrole
 
+        @role('Admin')
         <div class="block px-4 py-2 text-xs text-gray-500 font-semibold uppercase mt-4">
             Administración
         </div>
         <x-responsive-nav-link href="{{ route('admin.users.index') }}" :active="request()->routeIs('admin.users.*')">
             <i class="fa-solid fa-users w-5 text-center mr-2"></i> Usuarios
         </x-responsive-nav-link>
+        @endrole
     </div>
   </div>
 </nav>

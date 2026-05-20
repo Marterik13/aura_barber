@@ -36,14 +36,14 @@
                         <div>
                             <x-wire-input label="Nombre" name="name" 
                                 :value="old('name', $user->name)" 
-                                placeholder="Nombre completo" />
+                                placeholder="Nombre completo" required />
                         </div>
 
                         {{-- Email: Cargamos el valor actual con $user->email --}}
                         <div>
                             <x-wire-input label="Correo electrónico" name="email" 
                                 :value="old('email', $user->email)" 
-                                type="email" placeholder="ejemplo@dominio.com" />
+                                type="email" placeholder="ejemplo@dominio.com" required />
                         </div>
 
                         {{-- Password: En edición el password suele ser opcional --}}
@@ -60,19 +60,19 @@
                         <div>
                             <x-wire-input label="Número de ID" name="id_number" 
                                 :value="old('id_number', $user->id_number)" 
-                                placeholder="Ej. 123456789" />
+                                placeholder="Ej. 123456789" required />
                         </div>
 
                         <div>
                             <x-wire-input label="Teléfono" name="phone" 
                                 :value="old('phone', $user->phone)" 
-                                placeholder="Ej. 999999999" />
+                                placeholder="Ej. 999999999" required />
                         </div>
 
                         <div class="md:col-span-2">
                             <x-wire-input label="Dirección" name="address" 
                                 :value="old('address', $user->address)" 
-                                placeholder="Ej. Calle 90 293" />
+                                placeholder="Ej. Calle 90 293" required />
                         </div>
 
                         <div class="md:col-span-2">

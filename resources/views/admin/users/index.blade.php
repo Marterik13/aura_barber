@@ -11,7 +11,7 @@
         </x-wire-button>
     </x-slot>
 
-    <div wire:key="users-table-container">
+    <div wire:key="users-table-container" class="dark-table-container mt-6">
         @livewire('admin.Datatables.user-table')
     </div>
 
