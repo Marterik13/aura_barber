@@ -51,12 +51,14 @@
             }
         </style>
     </head>
-    <body class="bg-[#0D0D0D] text-[#F5F5F5]">
+    <body class="bg-[#0D0D0D] text-[#F5F5F5]" x-data="{ sidebarOpen: false }">
 
     @include('layouts.includes.admin.navigation')
+    
+    @include('layouts.includes.admin.sidebar')
 
-    <div class="p-4 sm:px-6 lg:px-8 mt-14 max-w-screen-2xl mx-auto w-full">
-       <div class="mt-14 flex justify-between items-center w-full">
+    <div class="p-4 sm:ml-64 pt-20 transition-all">
+       <div class="flex justify-between items-center w-full mb-4">
             @include('includes.admin.breadcrumbs', ['breadcrumbs' => $breadcrumbs])
             
             @isset($action)
@@ -66,8 +68,8 @@
             @endisset
        </div>
        
-       <main class="mt-4">
-            <div class="bg-[#1A1A1A] border border-gray-800 rounded-2xl p-6 shadow-2xl">
+       <main>
+            <div class="bg-[#1A1A1A] border border-gray-800 rounded-3xl p-6 md:p-10 shadow-2xl overflow-hidden">
                 {{ $slot }}
             </div>
        </main>

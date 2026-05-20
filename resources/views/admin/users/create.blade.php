@@ -76,7 +76,7 @@
                     {{-- Botón --}}
                     <div class="flex items-center justify-end mt-8">
                         <x-wire-button 
-                            class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 uppercase tracking-widest text-xs font-semibold shadow-md" 
+                            class="bg-gradient-to-r from-[#BF953F] to-[#AA771C] hover:scale-105 text-black px-6 py-2 uppercase tracking-widest text-xs font-bold shadow-md transition-all" 
                             label="Guardar" 
                             type="submit" 
                         />

@@ -5,7 +5,7 @@
 
     {{-- Definimos el slot 'action' aquí --}}
     <x-slot name="action">
-        <x-wire-button blue href="{{ route('admin.users.create') }}">
+        <x-wire-button href="{{ route('admin.users.create') }}" class="bg-gradient-to-r from-[#BF953F] to-[#AA771C] text-black font-bold border-none hover:scale-105 transition-all">
             <i class="fa-solid fa-plus mr-2"></i>
             Nuevo
         </x-wire-button>

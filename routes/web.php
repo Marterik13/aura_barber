@@ -21,4 +21,8 @@ Route::middleware([
     // --- AURA AESTHETICS ROUTES ---
     Route::resource('/admin/users', UserController::class)->names('admin.users');
     Route::get('/admin/roles', [RoleController::class, 'index'])->name('admin.roles.index');
+    
+    Route::resource('/admin/services', \App\Http\Controllers\Admin\ServiceController::class)->names('admin.services');
+    Route::resource('/admin/specialists', \App\Http\Controllers\Admin\SpecialistController::class)->names('admin.specialists');
+    Route::resource('/admin/appointments', \App\Http\Controllers\Admin\AppointmentController::class)->names('admin.appointments');
 });
