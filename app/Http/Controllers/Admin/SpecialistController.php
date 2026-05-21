@@ -14,6 +14,73 @@ class SpecialistController extends Controller
         return view('admin.specialists.index', compact('specialists'));
     }
 
+    public function create()
+    {
+        $users = \App\Models\User::all();
+        return view('admin.specialists.create', compact('users'));
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'specialty' => 'required|string|max:255',
+            'bio' => 'nullable|string',
+            'start_time' => 'required|integer|min:0|max:23',
+            'end_time' => 'required|integer|min:0|max:24|gt:start_time',
+        ]);
+
+        Specialist::create($data);
+
+        session()->flash('swal', [
+            'icon'  => 'success',
+            'title' => '¡Bien hecho!',
+            'text'  => 'El especialista se creó correctamente.',
+        ]);
+
+        return redirect()->route('admin.specialists.index');
+    }
+
+    public function edit(Specialist $specialist)
+    {
+        $users = \App\Models\User::all();
+        return view('admin.specialists.edit', compact('specialist', 'users'));
+    }
+
+    public function update(Request $request, Specialist $specialist)
+    {
+        $data = $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'specialty' => 'required|string|max:255',
+            'bio' => 'nullable|string',
+            'start_time' => 'required|integer|min:0|max:23',
+            'end_time' => 'required|integer|min:0|max:24|gt:start_time',
+        ]);
+
+        $specialist->update($data);
+
+        session()->flash('swal', [
+            'icon'  => 'success',
+            'title' => '¡Actualizado!',
+            'text'  => 'El especialista se actualizó correctamente.',
+        ]);
+
+        return redirect()->route('admin.specialists.index');
+    }
+
+    public function destroy(Specialist $specialist)
+    {
+        $specialist->delete();
+
+        session()->flash('swal', [
+            'icon'  => 'success',
+            'title' => 'Eliminado',
+            'text'  => 'El especialista ha sido borrado.',
+        ]);
+
+        return redirect()->route('admin.specialists.index');
+    }
+
     public function schedules(Specialist $specialist)
     {
         // Authorization: Admin can edit any, Staff can only edit their own

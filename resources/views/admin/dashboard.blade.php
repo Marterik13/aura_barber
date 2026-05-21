@@ -3,10 +3,7 @@
         'name' => 'Dashboard',
         'href' => route('admin.dashboard'),
     ],
-    [
-        'name' => 'Ejemplo',
-        'href' => route('admin.ejemplo'),
-    ]
+
 ]">
 
     <div class="p-6 bg-white rounded-lg shadow">

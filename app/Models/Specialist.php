@@ -14,6 +14,8 @@ class Specialist extends Model
         'user_id',
         'specialty',
         'bio',
+        'start_time',
+        'end_time',
     ];
 
     public function user()

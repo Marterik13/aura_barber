@@ -1,20 +1,15 @@
-<x-admin-layout title="Editar Usuario" :breadcrumbs="[
-    ['name' => 'Dashboard', 'href' => route('dashboard')],
-    ['name' => 'Usuarios', 'href' => route('admin.users.index')],
-    ['name' => 'Editar']
-]"> 
-
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        
-        <h2 class="text-2xl font-semibold text-gray-800 leading-tight mb-6">
-            Editar Usuario: {{ $user->name }}
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl gold-text leading-tight">
+            {{ __('Editar Usuario: ') }} {{ $user->name }}
         </h2>
+    </x-slot>
 
-        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-            {{-- Mantenemos el padding px-20 que usa el profe --}}
-            <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-[#1A1A1A] border border-gray-800 overflow-hidden shadow-2xl sm:rounded-3xl">
+                <div class="p-12 md:p-16">
                 
-                {{-- Muy importante: El action cambia a UPDATE y agregamos @method('PUT') --}}
                 <form action="{{ route('admin.users.update', $user) }}" method="POST">
                     @csrf
                     @method('PUT')
@@ -32,21 +27,18 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         
-                        {{-- Nombre: Cargamos el valor actual con $user->name --}}
                         <div>
                             <x-wire-input label="Nombre" name="name" 
                                 :value="old('name', $user->name)" 
                                 placeholder="Nombre completo" required />
                         </div>
 
-                        {{-- Email: Cargamos el valor actual con $user->email --}}
                         <div>
                             <x-wire-input label="Correo electrónico" name="email" 
                                 :value="old('email', $user->email)" 
                                 type="email" placeholder="ejemplo@dominio.com" required />
                         </div>
 
-                        {{-- Password: En edición el password suele ser opcional --}}
                         <div>
                             <x-wire-input name="password" label="Nueva Contraseña" 
                                 type="password" placeholder="Dejar en blanco para no cambiar" />
@@ -78,7 +70,6 @@
                         <div class="md:col-span-2">
                             <x-wire-select label="Rol" name="rol_id" placeholder="Seleccione un rol" required>
                                 @foreach ($roles as $role)
-                                    {{-- El profe usa la propiedad selected para marcar el rol actual --}}
                                     <x-wire-select.option label="{{ $role->name }}" value="{{ $role->id }}" 
                                         :selected="$user->hasRole($role->name)" />
                                 @endforeach
@@ -95,8 +86,8 @@
                         />
                     </div>
                 </form>
+                </div>
             </div>
         </div>
     </div>
-    
-</x-admin-layout>
+</x-app-layout>

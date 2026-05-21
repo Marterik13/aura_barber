@@ -1,25 +1,18 @@
-<x-admin-layout title="Crear Usuario" :breadcrumbs="[
-    ['name' => 'Dashboard', 'href' => route('dashboard')],
-    ['name' => 'Usuarios', 'href' => route('admin.users.index')],
-    ['name' => 'Crear']
-]"> 
-
-    {{-- El profe usa un contenedor con padding lateral --}}
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        
-        {{-- Título "Crear" alineado a la izquierda, fuera del card --}}
-        <h2 class="text-2xl font-semibold text-gray-800 leading-tight mb-6">
-            Crear
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl gold-text leading-tight">
+            {{ __('Crear Usuario') }}
         </h2>
+    </x-slot>
 
-        {{-- El card blanco de Jetstream usa shadow-xl y rounded-lg --}}
-        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-            <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-[#1A1A1A] border border-gray-800 overflow-hidden shadow-2xl sm:rounded-3xl">
+                <div class="p-12 md:p-16">
                 
                 <form action="{{ route('admin.users.store') }}" method="POST">
                     @csrf
 
-                    {{-- Lista de errores--}}
                     @if ($errors->any())
                         <div class="mb-6">
                             <div class="font-bold text-red-600 text-lg">¡Ups! Algo salió mal.</div>
@@ -31,7 +24,6 @@
                         </div>
                     @endif
 
-                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         
                         <div>
@@ -58,7 +50,6 @@
                             <x-wire-input label="Teléfono" name="phone" :value="old('phone')" placeholder="Ej. 999999999" required />
                         </div>
 
-                        {{-- Dirección y Rol ocupan todo el ancho (col-span-2) --}}
                         <div class="md:col-span-2">
                             <x-wire-input label="Dirección" name="address" :value="old('address')" placeholder="Ej. Calle 90 293" required />
                         </div>
@@ -73,7 +64,6 @@
                         </div>
                     </div>
 
-                    {{-- Botón --}}
                     <div class="flex items-center justify-end mt-8">
                         <x-wire-button 
                             class="bg-gradient-to-r from-[#BF953F] to-[#AA771C] hover:scale-105 text-black px-6 py-2 uppercase tracking-widest text-xs font-bold shadow-md transition-all" 
@@ -82,7 +72,8 @@
                         />
                     </div>
                 </form>
+                </div>
             </div>
         </div>
     </div>
-</x-admin-layout>
+</x-app-layout>

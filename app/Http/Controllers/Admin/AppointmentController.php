@@ -21,4 +21,36 @@ class AppointmentController extends Controller
         $appointments = $query->get();
         return view('admin.appointments.index', compact('appointments'));
     }
+
+    public function create()
+    {
+        $clients = \App\Models\User::all();
+        $specialists = \App\Models\Specialist::with('user')->get();
+        $services = \App\Models\Service::all();
+        return view('admin.appointments.create', compact('clients', 'specialists', 'services'));
+    }
+
+    public function store(\Illuminate\Http\Request $request)
+    {
+        $data = $request->validate([
+            'client_id' => 'required|exists:users,id',
+            'specialist_id' => 'required|exists:specialists,id',
+            'service_id' => 'required|exists:services,id',
+            'date' => 'required|date',
+            'time' => 'required|date_format:H:i',
+            'notes' => 'nullable|string',
+        ]);
+
+        $data['status'] = 'Pending';
+
+        Appointment::create($data);
+
+        session()->flash('swal', [
+            'icon'  => 'success',
+            'title' => '¡Bien hecho!',
+            'text'  => 'La cita se creó correctamente.',
+        ]);
+
+        return redirect()->route('admin.appointments.index');
+    }
 }
