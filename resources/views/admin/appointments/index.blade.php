@@ -34,4 +34,5 @@
             </div>
         </div>
     </div>
+    <x-admin-alerts />
 </x-app-layout>

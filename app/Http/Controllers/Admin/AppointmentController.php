@@ -7,6 +7,7 @@ use App\Mail\AppointmentReminderMail;
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use App\Mail\AppointmentConfirmationMail;
+use Carbon\Carbon;
 
 class AppointmentController extends Controller
 {
@@ -65,12 +66,15 @@ class AppointmentController extends Controller
     ]);
 
     Mail::to($appointment->client->email)
-        ->send(new AppointmentConfirmationMail($appointment));
+    ->queue(new AppointmentConfirmationMail($appointment));
 
-    return back()->with('swal', [
-        'icon' => 'success',
-        'title' => 'Correo enviado',
-        'text' => 'La confirmación fue enviada correctamente.',
-    ]);
+$testReminderTime = now()->addMinute();//$appointmentDateTime->copy()->subHour()
+
+
+Mail::to($appointment->client->email)
+    ->later(
+        $testReminderTime,
+        new AppointmentConfirmationMail($appointment)
+    );
 }
 }

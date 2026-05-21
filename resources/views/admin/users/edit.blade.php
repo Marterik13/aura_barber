@@ -85,9 +85,9 @@
                     </div>
 
                     <div class="flex items-center justify-end mt-8">
-                        <x-wire-button flat label="Cancelar" href="{{ route('admin.users.index') }}" class="mr-4" />
+                        <x-wire-button amber flat label="Cancelar" href="{{ route('admin.users.index') }}" class="mr-4" />
                         <x-wire-button 
-                            class="bg-gradient-to-r from-[#BF953F] to-[#AA771C] hover:scale-105 text-black px-6 py-2 uppercase tracking-widest text-xs font-bold shadow-md transition-all" 
+                            amber
                             label="Actualizar" 
                             type="submit" 
                         />
@@ -97,4 +97,5 @@
             </div>
         </div>
     </div>
+    <x-admin-alerts />
 </x-app-layout>
