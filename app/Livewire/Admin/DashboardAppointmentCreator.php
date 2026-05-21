@@ -89,94 +89,108 @@ class DashboardAppointmentCreator extends Component
     }
 
     public function calculateAvailableTimes()
-    {
-        $this->time = '';
-        $this->availableTimes = [];
+{
+    $this->time = '';
+    $this->availableTimes = [];
 
-        if (!$this->specialist_id || !$this->date) {
-            return;
-        }
-
-        $dayOfWeek = date('w', strtotime($this->date)); // 0 = Sunday, 6 = Saturday
-
-        $schedule = \App\Models\SpecialistSchedule::where('specialist_id', $this->specialist_id)
-            ->where('day_of_week', $dayOfWeek)
-            ->first();
-
-        if (!$schedule || !$schedule->is_working) {
-            return; // No working hours this day
-        }
-
-        $serviceDuration = 30; // default 30 mins
-        if ($this->service_id) {
-            $service = Service::find($this->service_id);
-            if ($service) {
-                $serviceDuration = $service->duration;
-            }
-        }
-
-        // Get existing appointments for this specialist on this date
-        $existingAppointments = Appointment::with('service')->where('specialist_id', $this->specialist_id)
-            ->where('date', $this->date)
-            ->get();
-
-        $start = strtotime($this->date . ' ' . $schedule->start_time);
-        $end = strtotime($this->date . ' ' . $schedule->end_time);
-
-        $times = [];
-        $current = $start;
-
-        while ($current + ($serviceDuration * 60) <= $end) {
-            $timeString = date('H:i', $current);
-            $endTimeString = date('H:i', $current + ($serviceDuration * 60));
-            
-            $isAvailable = true;
-
-            // Check against existing appointments
-            foreach ($existingAppointments as $app) {
-                $appStart = strtotime($this->date . ' ' . $app->time);
-                $appDuration = $app->service ? $app->service->duration : 30;
-                $appEnd = $appStart + ($appDuration * 60);
-
-                $slotStart = $current;
-                $slotEnd = $current + ($serviceDuration * 60);
-
-                // If overlapping
-                if ($slotStart < $appEnd && $slotEnd > $appStart) {
-                    $isAvailable = false;
-                    break;
-                }
-            }
-
-            if ($isAvailable) {
-                $times[] = $timeString;
-            }
-
-            // Increment by 30 mins blocks
-            $current += 30 * 60;
-        }
-
-        $this->availableTimes = $times;
+    if (!$this->specialist_id || !$this->date) {
+        return;
     }
+
+    // 1. Buscamos el especialista directo con sus columnas start_time y end_time
+    $specialist = \App\Models\Specialist::find($this->specialist_id);
+
+    // Validamos que tenga horas asignadas en la tabla specialists
+    if (!$specialist || !$specialist->start_time || !$specialist->end_time) {
+        return; 
+    }
+
+    $serviceDuration = 30; // por defecto 30 mins
+    if ($this->service_id) {
+        $service = Service::find($this->service_id);
+        if ($service) {
+            $serviceDuration = $service->duration;
+        }
+    }
+
+    // Obtener citas existentes
+    $existingAppointments = Appointment::with('service')->where('specialist_id', $this->specialist_id)
+        ->where('date', $this->date)
+        ->get();
+
+    // 2. Convertimos las horas (ej: 10 y 18) a formato timestamp
+    $start = strtotime($this->date . ' ' . $specialist->start_time . ':00');
+    $end = strtotime($this->date . ' ' . $specialist->end_time . ':00');
+
+    $times = [];
+    $current = $start;
+
+    while ($current + ($serviceDuration * 60) <= $end) {
+        $timeString = date('H:i', $current);
+        
+        $isAvailable = true;
+
+        // Comprobar colisiones con otras citas
+        foreach ($existingAppointments as $app) {
+            $appStart = strtotime($this->date . ' ' . $app->time);
+            $appDuration = $app->service ? $app->service->duration : 30;
+            $appEnd = $appStart + ($appDuration * 60);
+
+            $slotStart = $current;
+            $slotEnd = $current + ($serviceDuration * 60);
+
+            if ($slotStart < $appEnd && $slotEnd > $appStart) {
+                $isAvailable = false;
+                break;
+            }
+        }
+
+        if ($isAvailable) {
+            $times[] = $timeString;
+        }
+
+        // Bloques de 30 minutos
+        $current += 30 * 60;
+    }
+
+    $this->availableTimes = $times;
+}
 
     public function openListModal()
-    {
-        $this->showModal = false;
+{
+    $this->showModal = false;
+    
+    // 1. Iniciamos la consulta base cargando las relaciones
+    $query = Appointment::with(['client', 'specialist.user', 'service'])
+        ->where('date', '>=', date('Y-m-d'));
         
-        $query = Appointment::with(['client', 'specialist.user', 'service'])
-            ->where('date', '>=', date('Y-m-d'));
-            
-        if (auth()->user()->hasAnyRole(['Estilista', 'Barbero', 'Mixto'])) {
-            $specialist = auth()->user()->specialist;
-            if ($specialist) {
-                $query->where('specialist_id', $specialist->id);
-            }
+    $user = auth()->user();
+
+    // 2. Aplicamos los filtros de seguridad según el rol
+    if ($user->hasRole('Administrador')) {
+        // El administrador ve ABSOLUTAMENTE TODAS las citas
+        // No añadimos ningún filtro extra a la consulta
+    } 
+    elseif ($user->hasAnyRole(['Estilista', 'Barbero', 'Mixto'])) {
+        // Si es Especialista/Staff, solo ve las citas donde su ID coincida
+        $specialist = $user->specialist;
+        if ($specialist) {
+            $query->where('specialist_id', $specialist->id);
+        } else {
+            // Si por algún error no tiene perfil de especialista, no le mostramos nada
+            $query->where('id', 0); 
         }
-            
-        $this->appointmentsList = $query->orderBy('date')->orderBy('time')->get();
-            
-        $this->showListModal = true;
+    } 
+    else {
+        // Si no es admin ni staff, asumimos que es Cliente y solo ve sus propias citas
+        $query->where('client_id', $user->id);
     }
+        
+    // 3. Traemos los resultados ordenados
+    $this->appointmentsList = $query->orderBy('date')->orderBy('time')->get();
+        
+    $this->showListModal = true;
+}
 
     public function save()
     {

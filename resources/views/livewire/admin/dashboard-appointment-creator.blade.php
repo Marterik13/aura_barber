@@ -1,3 +1,4 @@
+
 <div>
     <!-- Botones Principales en el Dashboard -->
     <div class="mt-8 mb-4 flex flex-wrap gap-4">
@@ -80,15 +81,23 @@
 
                             <!-- Especialista -->
                             <div>
-                                <label class="block text-sm font-medium text-gray-300 mb-1">Especialista</label>
-                                <select wire:model="specialist_id" style="background-color: #111; color: #FFF; border-color: #333;" class="w-full border rounded-lg focus:ring-[#D4AF37] focus:border-[#D4AF37] p-2.5" required>
-                                    <option value="">Selecciona un especialista...</option>
-                                    @foreach($specialists as $spec)
-                                        <option value="{{ $spec->id }}">{{ $spec->user->name ?? 'Especialista' }} - {{ $spec->specialty }}</option>
-                                    @endforeach
-                                </select>
-                                @error('specialist_id') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
-                            </div>
+    <label class="block text-sm font-medium text-gray-300 mb-1">Especialista</label>
+    <select
+        id="specialist-select"
+        wire:model.live="specialist_id"
+        style="background-color: #111; color: #FFF; border-color: #333;"
+        class="w-full border rounded-lg p-2.5"
+        required
+    >
+        <option value="">Selecciona un especialista...</option>
+        @foreach($specialists as $spec)
+            <option value="{{ $spec->id }}">
+                {{ $spec->user->name ?? 'Especialista' }} - {{ $spec->specialty }}
+            </option>
+        @endforeach
+    </select>
+    @error('specialist_id') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+</div>
 
                             <!-- Servicio -->
                             <div>
@@ -110,28 +119,25 @@
                             </div>
 
                             <!-- Horario -->
-                            <div>
-                                <label class="block text-sm font-medium text-gray-300 mb-1">Horario</label>
-                                @if(count($availableTimes) > 0)
-                                    <select wire:model="time" style="background-color: #111; color: #FFF; border-color: #333;" class="w-full border rounded-lg focus:ring-[#D4AF37] focus:border-[#D4AF37] p-2.5" required>
-                                        <option value="">Selecciona una hora...</option>
-                                        @foreach($availableTimes as $t)
-                                            <option value="{{ $t }}">{{ \Carbon\Carbon::parse($t)->format('h:i A') }}</option>
-                                        @endforeach
-                                    </select>
-                                @else
-                                    <div style="background-color: #222; border-color: #333;" class="w-full border rounded-lg p-2.5 text-gray-400 text-sm text-center">
-                                        @if(!$specialist_id || !$date)
-                                            Selecciona Especialista y Día
-                                        @else
-                                            No hay horarios disponibles
-                                        @endif
-                                    </div>
-                                    <!-- Hidden input to ensure validation fails correctly if empty -->
-                                    <input type="hidden" wire:model="time">
-                                @endif
-                                @error('time') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
-                            </div>
+                            <!-- Horario -->
+<div>
+    <label class="block text-sm font-medium text-gray-300 mb-1">Horario</label>
+    <select
+        id="time-select"
+        wire:model="time"
+        style="background-color: #111; color: #FFF; border-color: #333;"
+        class="w-full border rounded-lg p-2.5"
+        required
+    >
+        <option value="">Selecciona una hora...</option>
+        
+        <!-- Cambiado de $availableHours a $availableTimes para que coincida con tu backend -->
+        @foreach($availableTimes as $hour)
+            <option value="{{ $hour }}">{{ $hour }}</option>
+        @endforeach
+    </select>
+    @error('time') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+</div>
                         </div>
 
                         <!-- Botones de Acción -->
@@ -174,32 +180,29 @@
                     
                     @if(count($appointmentsList) > 0)
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[60vh] overflow-y-auto pr-2">
-                            @foreach($appointmentsList as $appt)
-                                <div style="background-color: #1A1A1A; border: 1px solid #333;" class="rounded-xl p-4 flex flex-col justify-between hover:border-[#D4AF37] transition-colors">
-                                    <div>
-                                        <div class="flex justify-between items-start mb-2">
-                                            <h4 class="font-bold text-lg text-white">{{ $appt->client->name ?? 'Cliente Eliminado' }}</h4>
-                                            <span style="background-color: rgba(212, 175, 55, 0.1); color: #D4AF37;" class="px-2 py-1 rounded text-xs font-semibold uppercase tracking-wider">
-                                                {{ $appt->status }}
-                                            </span>
-                                        </div>
-                                        <p style="color: #9ca3af;" class="text-sm mb-1">
-                                            <i class="fa-solid fa-scissors w-4 mr-1 text-[#D4AF37]"></i> {{ $appt->service->name ?? 'N/A' }}
-                                        </p>
-                                        <p style="color: #9ca3af;" class="text-sm mb-3">
-                                            <i class="fa-solid fa-user-tie w-4 mr-1 text-[#D4AF37]"></i> {{ $appt->specialist->user->name ?? 'Especialista' }}
-                                        </p>
-                                    </div>
-                                    <div style="background-color: #0a0a0a; border: 1px solid #222;" class="rounded-lg p-3 flex items-center justify-center">
-                                        <div class="text-center">
-                                            <span class="block text-xs uppercase tracking-widest text-[#9ca3af] mb-1">Fecha y Hora</span>
-                                            <span class="text-lg font-bold text-[#D4AF37]">
-                                                {{ \Carbon\Carbon::parse($appt->date)->format('d M, Y') }} a las {{ \Carbon\Carbon::parse($appt->time)->format('H:i') }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
+                            @foreach($appointmentsList as $appointment)
+        <div style="background-color: #111; border-color: #333;" class="p-4 border rounded-lg text-sm text-gray-300">
+            <strong>Fecha:</strong> {{ \Carbon\Carbon::parse($appointment->date)->format('d/m/Y') }} 
+            <span class="mx-2 text-gray-600">|</span>
+            
+            <strong>Hora:</strong> {{ $appointment->time }} 
+            <span class="mx-2 text-gray-600">|</span>
+            
+            <strong>Cliente:</strong> {{ $appointment->client?->name ?? 'N/A' }} 
+            <span class="mx-2 text-gray-600">|</span>
+            
+            <strong>Especialista:</strong> {{ $appointment->specialist?->user?->name ?? 'N/A' }} 
+            <span class="mx-2 text-gray-600">|</span>
+            
+            <strong>Servicio:</strong> {{ $appointment->service?->name ?? 'N/A' }}
+            
+            <!-- Etiqueta de Estado opcional al final -->
+            <span class="ml-4 px-2 py-0.5 rounded text-xs {{ $appointment->status === 'Pending' ? 'bg-yellow-600 text-white' : 'bg-green-600 text-white' }}">
+                {{ $appointment->status }}
+            </span>
+        </div>
+
+    @endforeach
                         </div>
                     @else
                         <div class="py-12 text-center">

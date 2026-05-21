@@ -50,7 +50,7 @@
                 <div class="flex flex-col md:flex-row gap-4 justify-center">
                     @if (Route::has('login'))
                         @auth
-                            <a href="{{ url('/dashboard') }}" class="btn-gold px-8 py-4 rounded-full font-bold text-lg uppercase tracking-wider">Ir al Dashboard</a>
+                            <a href="{{ url('/dashboard') }}" class="btn-gold px-8 py-4 rounded-full font-bold text-lg uppercase tracking-wider">Entrar</a>
                         @else
                             <a href="{{ route('login') }}" class="btn-gold px-8 py-4 rounded-full font-bold text-lg uppercase tracking-wider">Iniciar Sesión</a>
                             @if (Route::has('register'))
