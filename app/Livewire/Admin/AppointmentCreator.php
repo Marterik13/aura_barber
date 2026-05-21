@@ -217,7 +217,7 @@ class AppointmentCreator extends Component
             ->get();
 
         if ($allAppointments->isNotEmpty()) {
-            $admins = User::role('Admin')->get();
+            $admins = User::role('Administrador')->get();
             foreach ($admins as $admin) {
                 Mail::to($admin->email)->send(new DailyReportMail($allAppointments, 'Administrador'));
             }

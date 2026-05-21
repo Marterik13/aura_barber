@@ -27,15 +27,23 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         
                         <div>
-                            <x-wire-select label="Usuario" name="user_id" placeholder="Seleccione un usuario" required>
+                            <label class="block text-sm font-medium text-gray-300 mb-1">Usuario</label>
+                            <select name="user_id" required class="block w-full bg-[#111] border-gray-700 text-white rounded-md shadow-sm focus:border-[#D4AF37] focus:ring focus:ring-[#D4AF37] focus:ring-opacity-50 sm:text-sm">
+                                <option value="" disabled selected>Seleccione un usuario</option>
                                 @foreach ($users as $user)
-                                    <x-wire-select.option label="{{ $user->name }} ({{ $user->email }})" value="{{ $user->id }}" />
+                                    <option value="{{ $user->id }}">{{ $user->name }} ({{ $user->email }})</option>
                                 @endforeach
-                            </x-wire-select>
+                            </select>
                         </div>
 
                         <div>
-                            <x-wire-input label="Especialidad" name="specialty" :value="old('specialty')" placeholder="Ej. Barbero Principal" required />
+                            <label class="block text-sm font-medium text-gray-300 mb-1">Especialidad</label>
+                            <select name="specialty" required class="block w-full bg-[#111] border-gray-700 text-white rounded-md shadow-sm focus:border-[#D4AF37] focus:ring focus:ring-[#D4AF37] focus:ring-opacity-50 sm:text-sm">
+                                <option value="" disabled selected>Seleccione especialidad</option>
+                                @foreach ($roles as $role)
+                                    <option value="{{ $role->name }}">{{ $role->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="md:col-span-2">
@@ -43,19 +51,23 @@
                         </div>
 
                         <div>
-                            <x-wire-select label="Hora de Inicio" name="start_time" placeholder="Seleccione hora de inicio" required>
-                                @for ($i = 8; $i <= 22; $i++)
-                                    <x-wire-select.option label="{{ $i }}:00" value="{{ $i }}" />
+                            <label class="block text-sm font-medium text-gray-300 mb-1">Hora de Inicio</label>
+                            <select name="start_time" required class="block w-full bg-[#111] border-gray-700 text-white rounded-md shadow-sm focus:border-[#D4AF37] focus:ring focus:ring-[#D4AF37] focus:ring-opacity-50 sm:text-sm">
+                                <option value="" disabled selected>Seleccione hora de inicio</option>
+                                @for ($i = 8; $i <= 12; $i++)
+                                    <option value="{{ $i }}">{{ $i }}:00</option>
                                 @endfor
-                            </x-wire-select>
+                            </select>
                         </div>
 
                         <div>
-                            <x-wire-select label="Hora de Fin" name="end_time" placeholder="Seleccione hora de fin" required>
-                                @for ($i = 8; $i <= 22; $i++)
-                                    <x-wire-select.option label="{{ $i }}:00" value="{{ $i }}" />
+                            <label class="block text-sm font-medium text-gray-300 mb-1">Hora de Fin</label>
+                            <select name="end_time" required class="block w-full bg-[#111] border-gray-700 text-white rounded-md shadow-sm focus:border-[#D4AF37] focus:ring focus:ring-[#D4AF37] focus:ring-opacity-50 sm:text-sm">
+                                <option value="" disabled selected>Seleccione hora de fin</option>
+                                @for ($i = 16; $i <= 22; $i++)
+                                    <option value="{{ $i }}">{{ $i }}:00</option>
                                 @endfor
-                            </x-wire-select>
+                            </select>
                         </div>
 
                     </div>

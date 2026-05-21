@@ -20,7 +20,7 @@
                     </x-nav-link>
 
                     <!-- Gestión de Estética Dropdown -->
-                    @hasanyrole('Admin|Staff')
+                    @hasanyrole('Administrador|Estilista|Barbero|Mixto')
                     <div class="relative flex items-center h-full">
                         <x-dropdown align="left" width="48">
                             <x-slot name="trigger">
@@ -53,7 +53,7 @@
                     @endhasanyrole
 
                     <!-- Administración Dropdown -->
-                    @role('Admin')
+                    @role('Administrador')
                     <div class="relative flex items-center h-full">
                         <x-dropdown align="left" width="48">
                             <x-slot name="trigger">
@@ -143,7 +143,7 @@
                 {{ __('Panel') }}
             </x-responsive-nav-link>
 
-            @hasanyrole('Admin|Staff')
+            @hasanyrole('Administrador|Estilista|Barbero|Mixto')
             <!-- Gestión de Estética (Móvil) -->
             <div class="pt-4 pb-1 border-t border-gray-800">
                 <div class="px-4 py-2 text-xs font-semibold text-gray-500 uppercase tracking-widest">
@@ -163,7 +163,7 @@
             </div>
             @endhasanyrole
 
-            @role('Admin')
+            @role('Administrador')
             <div class="block px-4 py-2 text-xs text-gray-500 font-semibold uppercase mt-4">
                 Administración
             </div>

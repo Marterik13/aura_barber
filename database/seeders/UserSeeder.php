@@ -13,7 +13,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create Admin user
+                // Create Admin Aura user
         User::updateOrCreate(
             ['email' => 'admin@aura.com'],
             [
@@ -24,11 +24,19 @@ class UserSeeder extends Seeder
                 'address' => 'Aura Shop HQ',
                 'email_verified_at' => now(),
             ]
-        )->assignRole('Admin');
+        )->assignRole('Administrador');
 
-        // Create some basic users for testing
-        User::factory(10)->create()->each(function ($user) {
-            $user->assignRole('Client');
-        });
+        // Create second admin user
+        User::updateOrCreate(
+            ['email' => 'admin2@aura.com'],
+            [
+                'name' => 'Admin',
+                'password' => bcrypt('12345678'),
+                'id_number' => 'ADM-002',
+                'phone' => '1234567890',
+                'address' => 'Aura Shop HQ',
+                'email_verified_at' => now(),
+            ]
+        )->assignRole('Administrador');
     }
 }

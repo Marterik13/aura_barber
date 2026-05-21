@@ -55,11 +55,13 @@
                         </div>
 
                         <div class="md:col-span-2">
-                            <x-wire-select label="Rol" name="rol_id" placeholder="Seleccione un rol" required>
+                            <label class="block text-sm font-medium text-gray-300 mb-1">Rol</label>
+                            <select name="rol_id" required class="block w-full bg-[#111] border-gray-700 text-white rounded-md shadow-sm focus:border-[#D4AF37] focus:ring focus:ring-[#D4AF37] focus:ring-opacity-50 sm:text-sm">
+                                <option value="" disabled selected>Seleccione un rol</option>
                                 @foreach ($roles as $role)
-                                    <x-wire-select.option label="{{ $role->name }}" value="{{ $role->id }}" />
+                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
                                 @endforeach
-                            </x-wire-select>
+                            </select>
                             <p class="mt-2 text-sm text-gray-500">Define los permisos y accesos del usuario</p>
                         </div>
                     </div>

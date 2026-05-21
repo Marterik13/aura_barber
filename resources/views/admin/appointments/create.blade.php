@@ -27,27 +27,83 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         
                         <div>
-                            <x-wire-select label="Cliente" name="client_id" placeholder="Seleccione un cliente" required>
-                                @foreach ($clients as $client)
-                                    <x-wire-select.option label="{{ $client->name }}" value="{{ $client->id }}" />
-                                @endforeach
-                            </x-wire-select>
+                            <div>
+    <label class="block text-sm font-medium text-gray-300 mb-1">
+        Cliente
+    </label>
+
+    <select
+        name="client_id"
+        required
+        class="block w-full bg-[#111] border-gray-700 text-white rounded-md shadow-sm focus:border-[#D4AF37] focus:ring focus:ring-[#D4AF37] focus:ring-opacity-50 sm:text-sm"
+    >
+        <option value="" disabled selected>
+            Seleccione un cliente
+        </option>
+
+        @foreach ($clients as $client)
+            <option value="{{ $client->id }}">
+                {{ $client->name }}
+            </option>
+        @endforeach
+    </select>
+</div>
                         </div>
 
                         <div>
-                            <x-wire-select label="Especialista" name="specialist_id" placeholder="Seleccione un especialista" required>
-                                @foreach ($specialists as $specialist)
-                                    <x-wire-select.option label="{{ $specialist->user->name ?? 'Desconocido' }} ({{ $specialist->specialty }})" value="{{ $specialist->id }}" />
-                                @endforeach
-                            </x-wire-select>
+                            <div>
+    <label class="block text-sm font-medium text-gray-300 mb-1">
+        Especialista
+    </label>
+
+    <select
+        id="specialist-select"
+        name="specialist_id"
+        required
+        class="block w-full bg-[#111] border-gray-700 text-white rounded-md shadow-sm focus:border-[#D4AF37] focus:ring focus:ring-[#D4AF37] focus:ring-opacity-50 sm:text-sm"
+    >
+        <option value="" disabled selected>
+            Seleccione un especialista
+        </option>
+
+        @foreach ($specialists as $specialist)
+            <option
+                value="{{ $specialist->id }}"
+                data-start="{{ $specialist->start_time }}"
+                data-end="{{ $specialist->end_time }}"
+            >
+                {{ $specialist->user->name ?? 'Desconocido' }}
+                ({{ $specialist->specialty }})
+            </option>
+        @endforeach
+    </select>
+</div>
                         </div>
 
                         <div>
-                            <x-wire-select label="Servicio" name="service_id" placeholder="Seleccione un servicio" required>
-                                @foreach ($services as $service)
-                                    <x-wire-select.option label="{{ $service->name }} (${{ number_format($service->price, 2) }})" value="{{ $service->id }}" />
-                                @endforeach
-                            </x-wire-select>
+                            <div>
+    <label class="block text-sm font-medium text-gray-300 mb-1">
+        Servicio
+    </label>
+
+    <select
+        name="service_id"
+        required
+        class="block w-full bg-[#111] border-gray-700 text-white rounded-md shadow-sm focus:border-[#D4AF37] focus:ring focus:ring-[#D4AF37] focus:ring-opacity-50 sm:text-sm"
+    >
+        <option value="" disabled selected>
+            Seleccione un servicio
+        </option>
+
+        @foreach ($services as $service)
+            <option value="{{ $service->id }}">
+                {{ $service->name }}
+                (${{ number_format($service->price, 2) }})
+                - {{ $service->duration }} min
+            </option>
+        @endforeach
+    </select>
+</div>
                         </div>
 
                         <div>
@@ -55,7 +111,22 @@
                         </div>
 
                         <div>
-                            <x-wire-input label="Hora" name="time" type="time" :value="old('time')" required />
+                            <div>
+    <label class="block text-sm font-medium text-gray-300 mb-1">
+        Hora
+    </label>
+
+    <select
+        id="time-select"
+        name="time"
+        required
+        class="block w-full bg-[#111] border-gray-700 text-white rounded-md shadow-sm focus:border-[#D4AF37] focus:ring focus:ring-[#D4AF37] focus:ring-opacity-50 sm:text-sm"
+    >
+        <option value="" disabled selected>
+            Seleccione una hora
+        </option>
+    </select>
+</div>
                         </div>
 
                         <div class="md:col-span-2">
@@ -77,4 +148,32 @@
             </div>
         </div>
     </div>
+    <script>
+    const specialistSelect = document.getElementById('specialist-select');
+    const timeSelect = document.getElementById('time-select');
+
+    specialistSelect.addEventListener('change', function () {
+
+        const selectedOption = this.options[this.selectedIndex];
+
+        const start = parseInt(selectedOption.dataset.start);
+        const end = parseInt(selectedOption.dataset.end);
+
+        timeSelect.innerHTML =
+            '<option value="" disabled selected>Seleccione una hora</option>';
+
+        for (let hour = start; hour <= end; hour++) {
+
+            const formattedHour =
+                String(hour).padStart(2, '0') + ':00';
+
+            const option = document.createElement('option');
+
+            option.value = formattedHour;
+            option.textContent = formattedHour;
+
+            timeSelect.appendChild(option);
+        }
+    });
+</script>
 </x-app-layout>

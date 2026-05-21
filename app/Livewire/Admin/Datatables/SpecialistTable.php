@@ -15,9 +15,11 @@ class SpecialistTable extends DataTableComponent
     }
 
     public function builder(): Builder
-    {
-        return Specialist::query()->with('user');
-    }
+{
+    return Specialist::query()
+        ->select('specialists.*')
+        ->with('user');
+}
 
     public function columns(): array
     {
@@ -37,11 +39,12 @@ class SpecialistTable extends DataTableComponent
                     return \Illuminate\Support\Str::limit($value, 50);
                 }),
             Column::make("Horario", "start_time")
-                ->format(function($value, $row, $column) {
-                    if ($value && $row->end_time) {
-                        return $value . ':00 - ' . $row->end_time . ':00';
-                    }
-                    return 'No definido';
+                ->label(function ($row) {
+
+                    return ($row->start_time ?? 'N/A')
+                        . ':00 - ' .
+                        ($row->end_time ?? 'N/A')
+                        . ':00';
                 }),
             Column::make("Acciones")
                 ->label(function ($row) {

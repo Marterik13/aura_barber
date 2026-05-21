@@ -32,7 +32,7 @@ class DashboardAppointmentCreator extends Component
 
     public function mount()
     {
-        $this->clients = User::role('Client')->get();
+        $this->clients = User::role('Cliente')->get();
         // Solo obtener especialistas activos
         $this->specialists = Specialist::with('user')->get();
         $this->services = Service::all();
@@ -44,7 +44,7 @@ class DashboardAppointmentCreator extends Component
     
     public function loadStats()
     {
-        if (auth()->user()->hasRole('Admin')) {
+        if (auth()->user()->hasRole('Administrador')) {
             $this->citasHoy = Appointment::where('date', date('Y-m-d'))->count();
             $this->totalServicios = Service::count();
             $this->totalEspecialistas = Specialist::count();
@@ -59,12 +59,12 @@ class DashboardAppointmentCreator extends Component
 
     public function openModal()
     {
-        $this->clients = User::role('Client')->get();
+        $this->clients = User::role('Cliente')->get();
         $this->showListModal = false;
         $this->showModal = true;
         
         // If logged in user is Staff, preselect them
-        if (auth()->user()->hasRole('Staff')) {
+        if (auth()->user()->hasAnyRole(['Estilista', 'Barbero', 'Mixto'])) {
             $specialist = auth()->user()->specialist;
             if ($specialist) {
                 $this->specialist_id = $specialist->id;
@@ -166,7 +166,7 @@ class DashboardAppointmentCreator extends Component
         $query = Appointment::with(['client', 'specialist.user', 'service'])
             ->where('date', '>=', date('Y-m-d'));
             
-        if (auth()->user()->hasRole('Staff')) {
+        if (auth()->user()->hasAnyRole(['Estilista', 'Barbero', 'Mixto'])) {
             $specialist = auth()->user()->specialist;
             if ($specialist) {
                 $query->where('specialist_id', $specialist->id);

@@ -28,17 +28,66 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         
                         <div>
-                            <x-wire-select label="Usuario" name="user_id" placeholder="Seleccione un usuario" required>
-                                @foreach ($users as $user)
-                                    <x-wire-select.option label="{{ $user->name }} ({{ $user->email }})" value="{{ $user->id }}" :selected="$specialist->user_id == $user->id" />
-                                @endforeach
-                            </x-wire-select>
-                        </div>
+                             <div>
+    <label class="block text-sm font-medium text-gray-300 mb-1">
+        Usuario
+    </label>
+
+    <select
+        disabled
+        class="block w-full bg-[#111] border-gray-700 text-gray-400 rounded-md shadow-sm sm:text-sm cursor-not-allowed"
+    >
+        <option selected>
+            {{ $specialist->user->name ?? 'Usuario Desconocido' }}
+            ({{ $specialist->user->email ?? '' }})
+        </option>
+    </select>
+
+    <input
+        type="hidden"
+        name="user_id"
+        value="{{ $specialist->user_id }}"
+    />
+</div>
+                         </div>
 
                         <div>
-                            <x-wire-input label="Especialidad" name="specialty" 
-                                :value="old('specialty', $specialist->specialty)" 
-                                placeholder="Ej. Barbero Principal" required />
+                             <div>
+    <label class="block text-sm font-medium text-gray-300 mb-1">
+        Especialidad
+    </label>
+
+    <select
+        name="specialty"
+        required
+        class="block w-full bg-[#111] border-gray-700 text-white rounded-md shadow-sm focus:border-[#D4AF37] focus:ring focus:ring-[#D4AF37] focus:ring-opacity-50 sm:text-sm"
+    >
+        <option value="" disabled>
+            Seleccione especialidad
+        </option>
+
+        <option
+            value="Barbero"
+            {{ old('specialty', $specialist->specialty) == 'Barbero' ? 'selected' : '' }}
+        >
+            Barbero
+        </option>
+
+        <option
+            value="Mixto"
+            {{ old('specialty', $specialist->specialty) == 'Mixto' ? 'selected' : '' }}
+        >
+            Mixto
+        </option>
+
+        <option
+            value="Estilista"
+            {{ old('specialty', $specialist->specialty) == 'Estilista' ? 'selected' : '' }}
+        >
+            Estilista
+        </option>
+    </select>
+</div>
                         </div>
 
                         <div class="md:col-span-2">
@@ -46,19 +95,49 @@
                         </div>
 
                         <div>
-                            <x-wire-select label="Hora de Inicio" name="start_time" placeholder="Seleccione hora de inicio" required>
-                                @for ($i = 8; $i <= 22; $i++)
-                                    <x-wire-select.option label="{{ $i }}:00" value="{{ $i }}" :selected="$specialist->start_time == $i" />
-                                @endfor
-                            </x-wire-select>
+                            <div>
+    <label class="block text-sm font-medium text-gray-300 mb-1">
+        Hora de Inicio
+    </label>
+
+    <select
+        name="start_time"
+        required
+        class="block w-full bg-[#111] border-gray-700 text-white rounded-md shadow-sm focus:border-[#D4AF37] focus:ring focus:ring-[#D4AF37] focus:ring-opacity-50 sm:text-sm"
+    >
+        @for ($i = 8; $i <= 22; $i++)
+            <option
+                value="{{ $i }}"
+                {{ old('start_time', $specialist->start_time) == $i ? 'selected' : '' }}
+            >
+                {{ $i }}:00
+            </option>
+        @endfor
+    </select>
+</div>
                         </div>
 
                         <div>
-                            <x-wire-select label="Hora de Fin" name="end_time" placeholder="Seleccione hora de fin" required>
-                                @for ($i = 8; $i <= 22; $i++)
-                                    <x-wire-select.option label="{{ $i }}:00" value="{{ $i }}" :selected="$specialist->end_time == $i" />
-                                @endfor
-                            </x-wire-select>
+                            <div>
+    <label class="block text-sm font-medium text-gray-300 mb-1">
+        Hora de Fin
+    </label>
+
+    <select
+        name="end_time"
+        required
+        class="block w-full bg-[#111] border-gray-700 text-white rounded-md shadow-sm focus:border-[#D4AF37] focus:ring focus:ring-[#D4AF37] focus:ring-opacity-50 sm:text-sm"
+    >
+        @for ($i = 8; $i <= 22; $i++)
+            <option
+                value="{{ $i }}"
+                {{ old('end_time', $specialist->end_time) == $i ? 'selected' : '' }}
+            >
+                {{ $i }}:00
+            </option>
+        @endfor
+    </select>
+</div>
                         </div>
 
                     </div>

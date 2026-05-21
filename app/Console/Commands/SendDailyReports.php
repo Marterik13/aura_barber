@@ -41,7 +41,7 @@ class SendDailyReports extends Command
 
         if ($allAppointments->isNotEmpty()) {
             // Buscamos al admin (asumiendo que tiene el rol 'Admin')
-            $admins = User::role('Admin')->get();
+            $admins = User::role('Administrador')->get();
             foreach ($admins as $admin) {
                 Mail::to($admin->email)->send(new DailyReportMail($allAppointments, 'Administrador'));
             }

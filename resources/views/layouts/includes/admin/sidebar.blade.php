@@ -22,7 +22,7 @@
             </a>
          </li>
 
-         @hasanyrole('Admin|Staff')
+         @hasanyrole('Administrador|Estilista|Barbero|Mixto')
          <li class="pt-6 pb-2">
             <div class="text-xs font-bold text-gray-500 uppercase tracking-widest px-2">
                 Gestión de Estética
@@ -51,7 +51,7 @@
          </li>
          @endhasanyrole
          
-         @role('Admin')
+         @role('Administrador')
          <li class="pt-6 pb-2">
             <div class="text-xs font-bold text-gray-500 uppercase tracking-widest px-2">
                 Administración

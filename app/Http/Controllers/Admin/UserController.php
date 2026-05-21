@@ -51,22 +51,9 @@ class UserController extends Controller
             'text'  => 'El usuario se creó correctamente.',
         ]);
 
-        // Si es Paciente, crear registro médico y redirigir
-        if ($role->name === 'Paciente') {
-            // Creamos el registro en la tabla 'patients' (id, user_id, timestamps)
-            $patient = $user->patient()->create([]); 
-            
-            // Redirección inmediata al formulario de salud del paciente
-            return redirect()->route('admin.patients.edit', $patient);
-        }
-
-        // Si es Doctor, crear registro en la tabla 'doctors'
-        if ($role->name === 'Doctor') {
-            \App\Models\Doctor::firstOrCreate(['email' => $user->email], [
-                'name' => $user->name,
-                'dni' => $user->id_number,
-                'phone' => $user->phone,
-                'specialty' => 'General', // Default specialty
+        if (in_array($role->name, ['Estilista', 'Barbero', 'Mixto'])) {
+            \App\Models\Specialist::firstOrCreate(['user_id' => $user->id], [
+                'specialty' => $role->name,
             ]);
         }
 
@@ -102,6 +89,13 @@ class UserController extends Controller
         
         // Sincronizamos el rol (esto quita el anterior y pone el nuevo)
         $user->roles()->sync($data['rol_id']);
+
+        $role = Role::findById($data['rol_id'],'web');
+        if (in_array($role->name, ['Estilista', 'Barbero', 'Mixto'])) {
+            \App\Models\Specialist::firstOrCreate(['user_id' => $user->id], [
+                'specialty' => $role->name,
+            ]);
+        }
 
         session()->flash('swal', [
             'icon'  => 'success',

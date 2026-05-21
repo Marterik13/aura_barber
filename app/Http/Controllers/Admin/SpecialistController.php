@@ -17,7 +17,8 @@ class SpecialistController extends Controller
     public function create()
     {
         $users = \App\Models\User::all();
-        return view('admin.specialists.create', compact('users'));
+        $roles = \Spatie\Permission\Models\Role::whereNotIn('name', ['Administrador', 'Sin rol', 'Cliente'])->get();
+        return view('admin.specialists.create', compact('users', 'roles'));
     }
 
     public function store(Request $request)
@@ -44,7 +45,8 @@ class SpecialistController extends Controller
     public function edit(Specialist $specialist)
     {
         $users = \App\Models\User::all();
-        return view('admin.specialists.edit', compact('specialist', 'users'));
+        $roles = \Spatie\Permission\Models\Role::whereNotIn('name', ['Administrador', 'Sin rol', 'Cliente'])->get();
+        return view('admin.specialists.edit', compact('specialist', 'users', 'roles'));
     }
 
     public function update(Request $request, Specialist $specialist)
@@ -83,8 +85,8 @@ class SpecialistController extends Controller
 
     public function schedules(Specialist $specialist)
     {
-        // Authorization: Admin can edit any, Staff can only edit their own
-        if (auth()->user()->hasRole('Staff') && auth()->user()->specialist->id !== $specialist->id) {
+        // Authorization: Admin can edit any, Specialist can only edit their own
+        if (auth()->user()->hasAnyRole(['Estilista', 'Barbero', 'Mixto']) && auth()->user()->specialist->id !== $specialist->id) {
             abort(403, 'Unauthorized action.');
         }
 
@@ -94,7 +96,7 @@ class SpecialistController extends Controller
 
     public function updateSchedules(Request $request, Specialist $specialist)
     {
-        if (auth()->user()->hasRole('Staff') && auth()->user()->specialist->id !== $specialist->id) {
+        if (auth()->user()->hasAnyRole(['Estilista', 'Barbero', 'Mixto']) && auth()->user()->specialist->id !== $specialist->id) {
             abort(403, 'Unauthorized action.');
         }
 

@@ -14,9 +14,12 @@ class RoleSeeder extends Seeder
     {
         // Definir roles - Asegúrate de que 'Admin' esté en la lista
         $roles = [
-            'Admin',
-            'Staff',
-            'Client',
+            'Administrador',
+            'Cliente',
+            'Sin rol',
+            'Estilista',
+            'Barbero',
+            'Mixto'
         ];
 
         // Crear roles de forma segura

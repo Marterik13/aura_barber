@@ -11,7 +11,7 @@ class AppointmentController extends Controller
     {
         $query = Appointment::with(['client', 'specialist.user', 'service'])->orderBy('date', 'desc')->orderBy('time', 'desc');
         
-        if (auth()->user()->hasRole('Staff')) {
+        if (auth()->user()->hasAnyRole(['Estilista', 'Barbero', 'Mixto'])) {
             $specialist = auth()->user()->specialist;
             if ($specialist) {
                 $query->where('specialist_id', $specialist->id);
