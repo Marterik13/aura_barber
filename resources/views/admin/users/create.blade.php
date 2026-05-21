@@ -8,6 +8,12 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-[#1A1A1A] border border-gray-800 overflow-hidden shadow-2xl sm:rounded-3xl">
+
+<x-admin-header title="Crear Usuario" :breadcrumbs="[
+    ['name' => 'Dashboard', 'href' => route('admin.dashboard')],
+    ['name' => 'Usuarios', 'href' => route('admin.users.index')],
+    ['name' => 'Crear']
+]"/>  
                 <div class="p-12 md:p-16">
                 
                 <form action="{{ route('admin.users.store') }}" method="POST">
@@ -56,7 +62,7 @@
 
                         <div class="md:col-span-2">
                             <label class="block text-sm font-medium text-gray-300 mb-1">Rol</label>
-                            <select name="rol_id" required class="block w-full bg-[#111] border-gray-700 text-white rounded-md shadow-sm focus:border-[#D4AF37] focus:ring focus:ring-[#D4AF37] focus:ring-opacity-50 sm:text-sm">
+                            <select name="rol_id" required class="block w-full bg-[#111] border-gray-700 text-black rounded-md shadow-sm focus:border-[#D4AF37] focus:ring focus:ring-[#D4AF37] focus:ring-opacity-50 sm:text-sm">
                                 <option value="" disabled selected>Seleccione un rol</option>
                                 @foreach ($roles as $role)
                                     <option value="{{ $role->id }}">{{ $role->name }}</option>
@@ -67,7 +73,7 @@
                     </div>
 
                     <div class="flex items-center justify-end mt-8">
-                        <x-wire-button 
+                        <a 
                             class="bg-gradient-to-r from-[#BF953F] to-[#AA771C] hover:scale-105 text-black px-6 py-2 uppercase tracking-widest text-xs font-bold shadow-md transition-all" 
                             label="Guardar" 
                             type="submit" 

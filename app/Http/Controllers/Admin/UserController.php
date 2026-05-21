@@ -42,7 +42,7 @@ class UserController extends Controller
         $user = User::create($data);
 
         // 3. Asignar el rol usando el sistema de Spatie
-        $role = Role::findById($data['rol_id']);
+        Role::findById($data['rol_id'], 'web');
         $user->assignRole($role->name);
 
         session()->flash('swal', [

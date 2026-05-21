@@ -53,11 +53,9 @@
     </head>
     <body class="bg-[#0D0D0D] text-[#F5F5F5]" x-data="{ sidebarOpen: false }">
 
-    @include('layouts.includes.admin.navigation')
-    
-    @include('layouts.includes.admin.sidebar')
 
-    <div class="p-4 sm:ml-64 pt-20 transition-all">
+
+    <div class="p-4 pt-10 transition-all">
        <div class="flex justify-between items-center w-full mb-4">
             @include('includes.admin.breadcrumbs', ['breadcrumbs' => $breadcrumbs])
             

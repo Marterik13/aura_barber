@@ -8,6 +8,12 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-[#1A1A1A] border border-gray-800 overflow-hidden shadow-2xl sm:rounded-3xl">
+                
+                <x-admin-header title="Editar Usuario" :breadcrumbs="[
+    ['name' => 'Dashboard', 'href' => route('admin.dashboard')],
+    ['name' => 'Usuarios', 'href' => route('admin.users.index')],
+    ['name' => 'Editar']
+]"/> 
                 <div class="p-12 md:p-16">
                 
                 <form action="{{ route('admin.users.update', $user) }}" method="POST">
@@ -69,7 +75,7 @@
 
                         <div class="md:col-span-2">
                             <label class="block text-sm font-medium text-gray-300 mb-1">Rol</label>
-                            <select name="rol_id" required class="block w-full bg-[#111] border-gray-700 text-white rounded-md shadow-sm focus:border-[#D4AF37] focus:ring focus:ring-[#D4AF37] focus:ring-opacity-50 sm:text-sm">
+                            <select name="rol_id" required class="block w-full bg-[#111] border-gray-700 text-black rounded-md shadow-sm focus:border-[#D4AF37] focus:ring focus:ring-[#D4AF37] focus:ring-opacity-50 sm:text-sm">
                                 <option value="" disabled>Seleccione un rol</option>
                                 @foreach ($roles as $role)
                                     <option value="{{ $role->id }}" {{ $user->hasRole($role->name) ? 'selected' : '' }}>{{ $role->name }}</option>

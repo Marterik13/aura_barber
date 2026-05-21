@@ -9,6 +9,11 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-[#1A1A1A] border border-gray-800 overflow-hidden shadow-2xl sm:rounded-3xl">
                 <div class="p-12 md:p-16">
+                 <x-admin-header title="Crear Cita" :breadcrumbs="[
+    ['name' => 'Dashboard', 'href' => route('admin.dashboard')],
+    ['name' => 'Citas', 'href' => route('admin.appointments.index')],
+    ['name' => 'Crear']
+]"/>   
                 
                 <form action="{{ route('admin.appointments.store') }}" method="POST">
                     @csrf
@@ -35,7 +40,7 @@
     <select
         name="client_id"
         required
-        class="block w-full bg-[#111] border-gray-700 text-white rounded-md shadow-sm focus:border-[#D4AF37] focus:ring focus:ring-[#D4AF37] focus:ring-opacity-50 sm:text-sm"
+        class="block w-full bg-[#111] border-gray-700 text-black rounded-md shadow-sm focus:border-[#D4AF37] focus:ring focus:ring-[#D4AF37] focus:ring-opacity-50 sm:text-sm"
     >
         <option value="" disabled selected>
             Seleccione un cliente
@@ -60,7 +65,7 @@
         id="specialist-select"
         name="specialist_id"
         required
-        class="block w-full bg-[#111] border-gray-700 text-white rounded-md shadow-sm focus:border-[#D4AF37] focus:ring focus:ring-[#D4AF37] focus:ring-opacity-50 sm:text-sm"
+        class="block w-full bg-[#111] border-gray-700 text-black rounded-md shadow-sm focus:border-[#D4AF37] focus:ring focus:ring-[#D4AF37] focus:ring-opacity-50 sm:text-sm"
     >
         <option value="" disabled selected>
             Seleccione un especialista
@@ -89,7 +94,7 @@
     <select
         name="service_id"
         required
-        class="block w-full bg-[#111] border-gray-700 text-white rounded-md shadow-sm focus:border-[#D4AF37] focus:ring focus:ring-[#D4AF37] focus:ring-opacity-50 sm:text-sm"
+        class="block w-full bg-[#111] border-gray-700 text-black rounded-md shadow-sm focus:border-[#D4AF37] focus:ring focus:ring-[#D4AF37] focus:ring-opacity-50 sm:text-sm"
     >
         <option value="" disabled selected>
             Seleccione un servicio
@@ -120,7 +125,7 @@
         id="time-select"
         name="time"
         required
-        class="block w-full bg-[#111] border-gray-700 text-white rounded-md shadow-sm focus:border-[#D4AF37] focus:ring focus:ring-[#D4AF37] focus:ring-opacity-50 sm:text-sm"
+        class="block w-full bg-[#111] border-gray-700 text-black rounded-md shadow-sm focus:border-[#D4AF37] focus:ring focus:ring-[#D4AF37] focus:ring-opacity-50 sm:text-sm"
     >
         <option value="" disabled selected>
             Seleccione una hora

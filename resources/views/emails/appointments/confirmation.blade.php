@@ -1,29 +1,46 @@
 <x-mail::message>
-# Confirmación de Cita Médica - Healthify
 
-Estimado(a) **{{ $appointment->patient->user->name }}**,
+# Confirmación de Cita - Aura Barber
 
-Le informamos que su cita médica ha sido agendada con éxito en nuestro sistema. Este mensaje también ha sido notificado al **Dr(a). {{ $appointment->doctor->name }}**.
+Hola **{{ $appointment->client->name }}**,
+
+Tu cita fue agendada correctamente.
 
 <x-mail::panel>
-**Detalles de su compromiso:**
-- 📅 **Fecha:** {{ $appointment->date->format('d/m/Y') }}
-- ⏰ **Hora:** {{ \Carbon\Carbon::parse($appointment->start_time)->format('H:i') }}
-- 🩺 **Especialidad:** {{ $appointment->doctor->specialty }}
-- 👨‍⚕️ **Doctor:** {{ $appointment->doctor->name }}
+
+### Detalles de la cita
+
+- 📅 **Fecha:** {{ \Carbon\Carbon::parse($appointment->date)->format('d/m/Y') }}
+
+- ⏰ **Hora:** {{ \Carbon\Carbon::parse($appointment->time)->format('H:i') }}
+
+- ✂️ **Especialista:** {{ $appointment->specialist->user->name }}
+
+- 💈 **Especialidad:** {{ $appointment->specialist->specialty }}
+
+- 🧾 **Servicio:** {{ $appointment->service->name }}
+
+- 💵 **Precio:** ${{ number_format($appointment->service->price, 2) }}
+
+- ⏳ **Duración:** {{ $appointment->service->duration }} min
+
 </x-mail::panel>
 
-**Motivo de consulta:**
-_{{ $appointment->reason }}_
+@if($appointment->notes)
 
-Adjunto a este correo encontrará el **Comprobante de Cita en formato PDF**, el cual deberá presentar (ya sea impreso o digital) al momento de su llegada al hospital.
+### Notas
 
-<x-mail::button :url="config('app.url') . '/admin/appointments'">
-Gestionar mi Cita
+{{ $appointment->notes }}
+
+@endif
+
+Gracias por elegir **Aura Barber**.
+
+<x-mail::button :url="url('/')">
+Ir al sitio
 </x-mail::button>
 
-*Nota: Por favor, llegue 15 minutos antes de la hora programada.*
+Saludos,<br>
+{{ config('app.name') }}
 
-Atentamente,<br>
-**Servicios Médicos Healthify**
 </x-mail::message>

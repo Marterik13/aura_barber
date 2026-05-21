@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AppointmentReminderMail;
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
+use App\Mail\AppointmentConfirmationMail;
 
 class AppointmentController extends Controller
 {
@@ -53,4 +56,21 @@ class AppointmentController extends Controller
 
         return redirect()->route('admin.appointments.index');
     }
+    public function sendEmail(Appointment $appointment)
+{
+    $appointment->load([
+        'client',
+        'specialist.user',
+        'service'
+    ]);
+
+    Mail::to($appointment->client->email)
+        ->send(new AppointmentConfirmationMail($appointment));
+
+    return back()->with('swal', [
+        'icon' => 'success',
+        'title' => 'Correo enviado',
+        'text' => 'La confirmación fue enviada correctamente.',
+    ]);
+}
 }

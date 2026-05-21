@@ -32,7 +32,7 @@ class AppointmentConfirmationMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Confirmación de Cita Médica - Healthify',
+            subject: 'Confirmación de Cita - Aura Barber',
         );
     }
 
@@ -54,7 +54,11 @@ class AppointmentConfirmationMail extends Mailable
     public function attachments(): array
     {
         // Asegurar que las relaciones necesarias estén cargadas para la vista del PDF
-        $this->appointment->load(['patient.user', 'doctor']);
+        $this->appointment->load([
+    'client',
+    'specialist.user',
+    'service'
+]);
         
         $pdf = Pdf::loadView('pdf.appointment-voucher', ['appointment' => $this->appointment]);
         

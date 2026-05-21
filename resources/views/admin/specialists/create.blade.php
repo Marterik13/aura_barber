@@ -8,7 +8,13 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-[#1A1A1A] border border-gray-800 overflow-hidden shadow-2xl sm:rounded-3xl">
+                                 <x-admin-header title="Crear Especialista" :breadcrumbs="[
+    ['name' => 'Dashboard', 'href' => route('admin.dashboard')],
+    ['name' => 'Especialistas', 'href' => route('admin.specialists.index')],
+    ['name' => 'Crear']
+]"/>  
                 <div class="p-12 md:p-16">
+                    
                 
                 <form action="{{ route('admin.specialists.store') }}" method="POST">
                     @csrf
@@ -28,7 +34,7 @@
                         
                         <div>
                             <label class="block text-sm font-medium text-gray-300 mb-1">Usuario</label>
-                            <select name="user_id" required class="block w-full bg-[#111] border-gray-700 text-white rounded-md shadow-sm focus:border-[#D4AF37] focus:ring focus:ring-[#D4AF37] focus:ring-opacity-50 sm:text-sm">
+                            <select name="user_id" required class="block w-full bg-[#111] border-gray-700 text-black rounded-md shadow-sm focus:border-[#D4AF37] focus:ring focus:ring-[#D4AF37] focus:ring-opacity-50 sm:text-sm">
                                 <option value="" disabled selected>Seleccione un usuario</option>
                                 @foreach ($users as $user)
                                     <option value="{{ $user->id }}">{{ $user->name }} ({{ $user->email }})</option>
@@ -38,7 +44,7 @@
 
                         <div>
                             <label class="block text-sm font-medium text-gray-300 mb-1">Especialidad</label>
-                            <select name="specialty" required class="block w-full bg-[#111] border-gray-700 text-white rounded-md shadow-sm focus:border-[#D4AF37] focus:ring focus:ring-[#D4AF37] focus:ring-opacity-50 sm:text-sm">
+                            <select name="specialty" required class="block w-full bg-[#111] border-gray-700 text-black rounded-md shadow-sm focus:border-[#D4AF37] focus:ring focus:ring-[#D4AF37] focus:ring-opacity-50 sm:text-sm">
                                 <option value="" disabled selected>Seleccione especialidad</option>
                                 @foreach ($roles as $role)
                                     <option value="{{ $role->name }}">{{ $role->name }}</option>
@@ -52,7 +58,7 @@
 
                         <div>
                             <label class="block text-sm font-medium text-gray-300 mb-1">Hora de Inicio</label>
-                            <select name="start_time" required class="block w-full bg-[#111] border-gray-700 text-white rounded-md shadow-sm focus:border-[#D4AF37] focus:ring focus:ring-[#D4AF37] focus:ring-opacity-50 sm:text-sm">
+                            <select name="start_time" required class="block w-full bg-[#111] border-gray-700 text-black rounded-md shadow-sm focus:border-[#D4AF37] focus:ring focus:ring-[#D4AF37] focus:ring-opacity-50 sm:text-sm">
                                 <option value="" disabled selected>Seleccione hora de inicio</option>
                                 @for ($i = 8; $i <= 12; $i++)
                                     <option value="{{ $i }}">{{ $i }}:00</option>
@@ -62,7 +68,7 @@
 
                         <div>
                             <label class="block text-sm font-medium text-gray-300 mb-1">Hora de Fin</label>
-                            <select name="end_time" required class="block w-full bg-[#111] border-gray-700 text-white rounded-md shadow-sm focus:border-[#D4AF37] focus:ring focus:ring-[#D4AF37] focus:ring-opacity-50 sm:text-sm">
+                            <select name="end_time" required class="block w-full bg-[#111] border-gray-700 text-black rounded-md shadow-sm focus:border-[#D4AF37] focus:ring focus:ring-[#D4AF37] focus:ring-opacity-50 sm:text-sm">
                                 <option value="" disabled selected>Seleccione hora de fin</option>
                                 @for ($i = 16; $i <= 22; $i++)
                                     <option value="{{ $i }}">{{ $i }}:00</option>

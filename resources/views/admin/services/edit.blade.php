@@ -9,6 +9,11 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-[#1A1A1A] border border-gray-800 overflow-hidden shadow-2xl sm:rounded-3xl">
                 <div class="p-12 md:p-16">
+                                     <x-admin-header title="Editar Servicio" :breadcrumbs="[
+    ['name' => 'Dashboard', 'href' => route('admin.dashboard')],
+    ['name' => 'Servicios', 'href' => route('admin.services.index')],
+    ['name' => 'Editar']
+]"/>  
                 
                 <form action="{{ route('admin.services.update', $service) }}" method="POST">
                     @csrf

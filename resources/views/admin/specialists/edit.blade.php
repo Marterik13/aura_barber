@@ -8,6 +8,12 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-[#1A1A1A] border border-gray-800 overflow-hidden shadow-2xl sm:rounded-3xl">
+
+                                 <x-admin-header title="Editar Especialista" :breadcrumbs="[
+    ['name' => 'Dashboard', 'href' => route('admin.dashboard')],
+    ['name' => 'Especialistas', 'href' => route('admin.specialists.index')],
+    ['name' => 'Editar']
+]"/>  
                 <div class="p-12 md:p-16">
                 
                 <form action="{{ route('admin.specialists.update', $specialist) }}" method="POST">
@@ -60,7 +66,7 @@
     <select
         name="specialty"
         required
-        class="block w-full bg-[#111] border-gray-700 text-white rounded-md shadow-sm focus:border-[#D4AF37] focus:ring focus:ring-[#D4AF37] focus:ring-opacity-50 sm:text-sm"
+        class="block w-full bg-[#111] border-gray-700 text-black rounded-md shadow-sm focus:border-[#D4AF37] focus:ring focus:ring-[#D4AF37] focus:ring-opacity-50 sm:text-sm"
     >
         <option value="" disabled>
             Seleccione especialidad
@@ -103,7 +109,7 @@
     <select
         name="start_time"
         required
-        class="block w-full bg-[#111] border-gray-700 text-white rounded-md shadow-sm focus:border-[#D4AF37] focus:ring focus:ring-[#D4AF37] focus:ring-opacity-50 sm:text-sm"
+        class="block w-full bg-[#111] border-gray-700 text-black rounded-md shadow-sm focus:border-[#D4AF37] focus:ring focus:ring-[#D4AF37] focus:ring-opacity-50 sm:text-sm"
     >
         @for ($i = 8; $i <= 22; $i++)
             <option
@@ -126,7 +132,7 @@
     <select
         name="end_time"
         required
-        class="block w-full bg-[#111] border-gray-700 text-white rounded-md shadow-sm focus:border-[#D4AF37] focus:ring focus:ring-[#D4AF37] focus:ring-opacity-50 sm:text-sm"
+        class="block w-full bg-[#111] border-gray-700 text-black rounded-md shadow-sm focus:border-[#D4AF37] focus:ring focus:ring-[#D4AF37] focus:ring-opacity-50 sm:text-sm"
     >
         @for ($i = 8; $i <= 22; $i++)
             <option
