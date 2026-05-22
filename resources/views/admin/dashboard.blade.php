@@ -13,7 +13,7 @@
 ]"/> 
                 <div class="p-12 md:p-16">
                     <h3 class="text-3xl font-bold mb-4">Bienvenido, <span class="gold-text">{{ Auth::user()->name }}</span></h3>
-                    <p class="text-gray-400 text-lg mb-4">Gestiona tu barbería con precisión y estilo. Aquí tienes un resumen de tu actividad.</p>
+                    <p class="text-gray-400 text-lg mb-4">GAquí tienes un resumen de tu actividad.</p>
                     
                     <!-- Appointment Scheduler Widget -->
                     @livewire('admin.dashboard-appointment-creator')
